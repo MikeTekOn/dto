@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>CRUD</title>
+    </head>
+    <body>
+        <form method="GET" action="/user/save" id="user_form"></form>
+        
+        <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                  <table>
+                      <thead>
+                          <tr>
+                            <th>Character ID</th>
+                            <th>Name</th>
+                            <th>Level</th>
+                            <th>Class</th>
+                          </tr>
+                        </thead>
+                    <tbody>
+                      <tr th:each="character : ${user.gameCharacters}">
+                        <td th:text="${character.id}"></td>
+                        <td th:text="${character.name}"></td>
+                        <td th:text="${character.level}"></td>
+                        <td th:text="${character.characterClass}"></td>
+                      </tr>
+                      <tr>
+                        <form method="GET" action="/character/save">
+                        <td><input type="hidden" name="userId" th:value="${user.id}"/><input type="text" name="id"/></td>
+                        <td><input type="text" name="name" /></td>
+                        <td><input type="text" name="level" /></td>
+                        <td><input type="text" name="characterClass" /><button type="submit">Add</button></td>
+                      </form>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="text" name="id" form="user_form" /></td>
+                <td><input type="text" name="name" form="user_form" /></td>
+                <td><input type="text" name="email" form="user_form" /></td>
+                <td><button type="submit" form="user_form">Add</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </body>
+</html>
